@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import {
   Animated,
   Image,
@@ -91,19 +91,20 @@ export default function App() {
           </View>
         </Animated.View>
 
-        <Link href="/game" asChild>
-          <Pressable
-            style={({ hovered, pressed }) => [
-              styles.gameButton,
-              hovered && styles.gameButtonHover,
-              pressed && styles.gameButtonPressed,
-            ]}
-          >
-            <Text style={styles.buttonKicker}>C'est parti</Text>
-            <Text style={styles.buttonText}>Choisir une carte</Text>
-            <Text style={[styles.buttonArrow, styles.buttonArrowDefault]}>→</Text>
-          </Pressable>
-        </Link>
+        <Pressable
+          onPress={() => router.push('/game')}
+          style={({ hovered, pressed }) => [
+            styles.gameButton,
+            hovered && styles.gameButtonHover,
+            pressed && styles.gameButtonPressed,
+          ]}
+          accessibilityRole="button"
+          accessibilityLabel="Choisir une carte"
+        >
+          <Text style={styles.buttonKicker}>C'est parti</Text>
+          <Text style={styles.buttonText}>Choisir une carte</Text>
+          <Text style={styles.buttonArrow}>→</Text>
+        </Pressable>
 
         <Text style={styles.footer}>Mario Party Jamboree · édition maison</Text>
       </Animated.View>
@@ -145,6 +146,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 620,
     alignItems: 'center',
+    zIndex: 1,
   },
   eyebrowRow: {
     flexDirection: 'row',
@@ -223,6 +225,7 @@ const styles = StyleSheet.create({
   },
   gameButton: {
     minWidth: 250,
+    minHeight: 78,
     backgroundColor: '#263b67',
     borderRadius: 18,
     paddingVertical: 14,
@@ -234,6 +237,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
     elevation: 5,
     position: 'relative',
+    zIndex: 2,
   },
   gameButtonHover: {
     backgroundColor: '#ef6a5b',
