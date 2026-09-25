@@ -92,10 +92,16 @@ export default function App() {
         </Animated.View>
 
         <Link href="/game" asChild>
-          <Pressable style={styles.gameButton}>
+          <Pressable
+            style={({ hovered, pressed }) => [
+              styles.gameButton,
+              hovered && styles.gameButtonHover,
+              pressed && styles.gameButtonPressed,
+            ]}
+          >
             <Text style={styles.buttonKicker}>C'est parti</Text>
             <Text style={styles.buttonText}>Choisir une carte</Text>
-            <Text style={styles.buttonArrow}>→</Text>
+            <Text style={[styles.buttonArrow, styles.buttonArrowDefault]}>→</Text>
           </Pressable>
         </Link>
 
@@ -229,6 +235,18 @@ const styles = StyleSheet.create({
     elevation: 5,
     position: 'relative',
   },
+  gameButtonHover: {
+    backgroundColor: '#ef6a5b',
+    transform: [{ translateY: -4 }, { scale: 1.03 }],
+    shadowColor: '#b84a3d',
+    shadowOpacity: 0.38,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 10 },
+  },
+  gameButtonPressed: {
+    transform: [{ translateY: 1 }, { scale: 0.98 }],
+    shadowOpacity: 0.16,
+  },
   buttonKicker: {
     color: '#ffd966',
     fontSize: 11,
@@ -248,6 +266,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 18,
     top: 22,
+  },
+  buttonArrowDefault: {
+    transform: [{ translateX: 0 }],
   },
   footer: {
     color: '#8f8068',
